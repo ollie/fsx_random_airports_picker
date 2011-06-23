@@ -1,0 +1,36 @@
+$ ruby random.rb --help
+Options:
+  --international, -i:   International? (default: false)
+      --count, -c <i>:   How many picks do you want? (default: 5)
+          --brief, -b:   Don't show link to a map (default: false)
+           --help, -h:   Show this message
+
+$ ruby random.rb
+http://www.gcmap.com/mapui?P=DISP-DISG (Cote d'Ivoire)
+http://www.gcmap.com/mapui?P=RPMP-RPSI (Philippines)
+http://www.gcmap.com/mapui?P=OPCL-OP10 (Pakistan)
+http://www.gcmap.com/mapui?P=TUPW-TUPJ (Virgin Islands. British)
+http://www.gcmap.com/mapui?P=NLWW-NLWF (Wallis and Futuna)
+
+$ ruby random.rb -i
+http://www.gcmap.com/mapui?P=LYBT-EKVG (Serbia and Montenegro -> Faroe Islands)
+http://www.gcmap.com/mapui?P=MHCA-UTAT (Honduras -> Turkmenistan)
+http://www.gcmap.com/mapui?P=MWCB-DTTJ (Cayman Islands -> Tunisia)
+http://www.gcmap.com/mapui?P=SKCG-FLPK (Colombia -> Zambia)
+http://www.gcmap.com/mapui?P=NIUE-FATH (Niue -> South Africa)
+
+$ ruby random.rb -b
+HBBO-HBBA (Burundi)
+MSSS-MS1B (El Salvador)
+PWAK-PMDY (Wake Island -> Midway Islands)
+TQPF-OSLK (Anguilla -> Syria)
+PGSN-PGWT (Northern Mariana Islands)
+
+$ ruby random.rb -c 2
+http://www.gcmap.com/mapui?P=YSCB-YWHA (Australia)
+http://www.gcmap.com/mapui?P=NSFA-NSFI (Samoa)
+
+$ ruby random.rb -i -b -c 3
+GMMH-WSSL (Western Sahara (disputed) -> Singapore)
+UT1A-TFFF (Tajikistan -> Martinique)
+Z27U-EFPN (Serbia and Montenegro -> Finland)
