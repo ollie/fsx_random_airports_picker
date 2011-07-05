@@ -1,5 +1,6 @@
 require 'trollop'
 require 'json'
+require_relative 'distance'
 
 opts = Trollop.options do
 	opt :international, 'International? (default: false)', :default => false, :short => :i, :type => :bool
@@ -22,9 +23,23 @@ class Randomizer
 	def pick_two
 		pick_country
 		country_one	= @country
-		code_one	= pick!
+		airport_one	= pick!
+		code_one = airport_one['code']
 		country_two	= @country
-		code_two	= pick!
+		airport_two	= pick!
+		code_two = airport_two['code']
+
+		p1 = Point.new do |p|
+			p.latitude = airport_one['latitude']
+			p.longitude = airport_one['longitude']
+		end
+
+		p2 = Point.new do |p|
+			p.latitude = airport_two['latitude']
+			p.longitude = airport_two['longitude']
+		end
+
+		distance = Distance.calc p1, p2
 
 		code_info		= "#{ code_one.rjust 4 }-#{ code_two.ljust 4 }"
 		if @highlight
@@ -34,14 +49,14 @@ class Randomizer
 		end
 		country_info	= country_one == country_two ? country_one : "#{ country_one } -> #{ country_two }"
 
-		puts @brief ? "#{ code_info } (#{ country_info })" : "#{ map_info } (#{ country_info })"
+		puts @brief ? "#{ code_info } (#{ country_info }) #{ distance } NM" : "#{ map_info } (#{ country_info }) #{ distance } NM"
 	end
 
 	def pick!
 		raise 'Out of data!' if @data.size <= 1
 
 		airport_index	= rand @data[@country].size
-		airport_code	= @data[@country].delete_at airport_index
+		airport_data	= @data[@country].delete_at airport_index
 
 		if @data[@country].empty?
 			@data.delete @country
@@ -52,7 +67,7 @@ class Randomizer
 		# puts "#{ @country }: #{ airport_code }"
 		# @data.each { |country, codes| puts "#{ country }: #{ codes.size }" }
 		# puts '=============='
-		airport_code
+		airport_data
 	end
 end
 

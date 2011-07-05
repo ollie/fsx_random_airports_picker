@@ -5,9 +5,9 @@ codes = {}
 File.open( 'fs10.Airports.dat', 'r' ).each do |line|
 	next unless line.match /^[0-9A-Z]/
 	parts = line.split(',')
-	code, country = parts.first.strip, parts.last.strip
+	code, latitude, longitude, country = parts.first.strip, parts[1].strip, parts[2].strip, parts.last.strip
 	codes[country] ||= []
-	codes[country] << code
+	codes[country] << { :code => code, :latitude => latitude, :longitude => longitude }
 end
 
 File.open( 'codes.txt', 'w' ) do |file|
