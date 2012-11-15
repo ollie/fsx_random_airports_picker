@@ -1,6 +1,6 @@
-require 'bundler/setup'
+require 'bundler'
+Bundler.require
 
-require 'trollop'
 require 'json'
 require './lib/distance'
 
